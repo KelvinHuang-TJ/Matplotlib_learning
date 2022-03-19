@@ -248,3 +248,93 @@ for ax, interp_method in zip(axs.flat, methods):
 
 plt.tight_layout();
 ```
+3. Object container
+include primitives and properties
+* figure
+```python
+# primitives of subplot and axes added in list of axes
+fig = plt.figure()
+ax1 = fig.add_subplot(211)
+ax2 = fig.add_axes([0.1,0.1,0.7,0.3]) # coordinate of left point, width, height
+print(ax1)
+print(fig.axes)
+```
+```python
+# use 'for' circle
+fig = plt.figure()
+ax1 = fig.add_subplot(211)
+for ax in fig.axes:
+    ax.grid(True)
+```
+* axes
+```python
+fig = plt.figure()
+ax = fig.add_subplot(111)
+rect = ax.patch  # 利用axes的patch属性实例化Rectangle对象
+rect.set_facecolor('green')
+```
+* axis
+style of axis(label,scale,title,grid)
+```python
+# use axis to get text and position of scale
+from IPython.core.interactiveshell import InteractiveShell
+InteractiveShell.ast_node_interactivity = "all"
+
+fig, ax = plt.subplots()
+x = range(0,5)
+y = [2,5,7,8,10]
+plt.plot(x, y, '-')
+
+axis = ax.xaxis # axis为X轴对象
+axis.get_ticklocs()     # 获取刻度线位置
+axis.get_ticklabels()   # 获取刻度label列表(一个Text实例的列表）。 
+axis.get_ticklines()    # 获取刻度线列表(一个Line2D实例的列表）。 
+axis.get_data_interval()# 获取轴刻度间隔
+axis.get_view_interval()# 获取轴视角（位置）的间隔
+```
+set the properties of axis and scale
+```python
+fig = plt.figure() # 创建一个新图表
+rect = fig.patch   # 矩形实例并将其设为黄色
+rect.set_facecolor('lightgoldenrodyellow')
+
+ax1 = fig.add_axes([0.1, 0.3, 0.4, 0.4]) # 创一个axes对象，从(0.1,0.3)的位置开始，宽和高都为0.4，
+rect = ax1.patch   # ax1的矩形设为灰色,实例化对象rect
+rect.set_facecolor('lightslategray')
+
+
+for label in ax1.xaxis.get_ticklabels(): 
+    # 调用x轴刻度标签实例，是一个text实例
+    label.set_color('red') # 颜色
+    label.set_rotation(45) # 旋转角度
+    label.set_fontsize(16) # 字体大小
+
+for line in ax1.yaxis.get_ticklines():
+    # 调用y轴刻度线条实例, 是一个Line2D实例
+    line.set_color('green')    # 颜色
+    line.set_markersize(25)    # marker大小
+    line.set_markeredgewidth(2)# marker粗细
+```
+* tick
+tick1 -> (down of x-axis/left of y-axis); tick2 -> (up of x-axis/right of y-axis)
+```python
+fig, ax = plt.subplots()
+ax.plot(100*np.random.rand(20))
+
+# 设置ticker的显示格式
+formatter = matplotlib.ticker.FormatStrFormatter('$%1.2f')
+ax.yaxis.set_major_formatter(formatter)
+
+# 设置ticker的参数，右侧为主轴，颜色为绿色
+ax.yaxis.set_tick_params(which='major', labelcolor='green',
+                         labelleft=False, labelright=True);
+```
+
+***
+**思考题**<br>
+1. primitives 和 container的区别和联系是什么，分别用于控制可视化图表中的哪些要素<br>
+primitive是图的元素，而container可以利用自身属性创建元素的对象，并通过对象来进行样式的调整。
+
+2. 使用提供的drug数据集，对第一列yyyy和第二列state分组求和，画出下面折线图。PA加粗标黄，其他为灰色。
+
+3. 分别用一组长方形柱和填充面积的方式模仿画出下图，函数 y = -1 * (x - 2) * (x - 8) +10 在区间[2,9]的积分面积
