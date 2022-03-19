@@ -338,3 +338,41 @@ primitive是图的元素，而container可以利用自身属性创建元素的�
 2. 使用提供的drug数据集，对第一列yyyy和第二列state分组求和，画出下面折线图。PA加粗标黄，其他为灰色。
 
 3. 分别用一组长方形柱和填充面积的方式模仿画出下图，函数 y = -1 * (x - 2) * (x - 8) +10 在区间[2,9]的积分面积
+```python
+x = np.linspace(0,10,100)
+y = -1 * (x - 2) * (x - 8) + 10
+x2 = np.arange(2,9,0.1)
+y2 = -1 * (x2 - 2) * (x2 - 8) + 10
+
+fig,ax = plt.subplots()
+
+ax.plot(x,y,color = 'red',linewidth = 2,linestyle = '-.')
+ax.bar(x2,y2,width = 0.05,alpha = 1,color = 'gray')
+
+ax.set_xlabel('x label')
+ax.set_ylabel('y label')
+ax.set_title('Simple Plot')
+ax.set_xlim(0)
+ax.set_ylim(0)
+plt.show();
+```
+![plot1](https://user-images.githubusercontent.com/99868099/159110573-912477bc-1bcb-4893-8623-0b70631cd7c5.png)
+```python
+x = np.linspace(0,10,100)
+y = -1 * (x - 2) * (x - 8) + 10
+x3 = np.linspace(2,9,100)
+y3 = -1 * (x3 - 2) * (x3 - 8) + 10
+
+fig,ax = plt.subplots()
+
+ax.plot(x,y,color = 'red',linewidth = 2,linestyle = '-')
+ax.fill_between(x3,y3,color = 'lightgray')
+
+ax.set_xlabel('x label')
+ax.set_ylabel('y label')
+ax.set_title('Simple Plot')
+ax.set_xlim(0)
+ax.set_ylim(0)
+plt.show();
+```
+![plot2](https://user-images.githubusercontent.com/99868099/159110658-77a69ee0-acb3-4190-87f3-92dfbfec4a6c.png)
