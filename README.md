@@ -146,44 +146,44 @@ plt.show()
     ax.set_ylim(2, 11);
     ```
   * errorbar
-  * patches
-    * rectangle
-      * hist
-      ```python
-      x=np.random.randint(0,100,100) #生成[0-100)之间的100个数据,即 数据集 
-      bins=np.arange(0,101,10) #设置连续的边界值，即直方图的分布区间[0,10),[10,20)... 
-      plt.hist(x,bins,color='fuchsia',alpha=0.5)#alpha设置透明度，0为完全透明 
-      plt.xlabel('scores') 
-      plt.ylabel('count') 
-      plt.xlim(0,100);
-      ```
-      ```python
-      # rectangle class
-      fig = plt.figure()
-      ax1 = fig.add_subplot(111)
+* patches
+  * rectangle
+    * hist
+    ```python
+    x=np.random.randint(0,100,100) #生成[0-100)之间的100个数据,即 数据集 
+    bins=np.arange(0,101,10) #设置连续的边界值，即直方图的分布区间[0,10),[10,20)... 
+    plt.hist(x,bins,color='fuchsia',alpha=0.5)#alpha设置透明度，0为完全透明 
+    plt.xlabel('scores') 
+    plt.ylabel('count') 
+    plt.xlim(0,100);
+    ```
+    ```python
+    # rectangle class
+    fig = plt.figure()
+    ax1 = fig.add_subplot(111)
 
-      for i in df_cnt.index:
-        rect =     plt.Rectangle((df_cnt.loc[i,'mini'],0),df_cnt.loc[i,'width'],df_cnt.loc[i,'fenzu'])
+    for i in df_cnt.index:
+      rect =     plt.Rectangle((df_cnt.loc[i,'mini'],0),df_cnt.loc[i,'width'],df_cnt.loc[i,'fenzu'])
+      ax1.add_patch(rect)
+    ax1.set_xlim(0, 100)
+    ax1.set_ylim(0, 16);
+    ```
+    * bar
+    ```python
+    # bar绘制柱状图
+    y = range(1,17)
+    plt.bar(np.arange(16), y, alpha=0.5, width=0.5, color='yellow', edgecolor='red',  label='The First Bar', lw=3);
+    ```
+    ```python
+    # Rectangle矩形类绘制柱状图
+    fig = plt.figure()
+    ax1 = fig.add_subplot(111)
+    for i in range(1,17):
+        rect =  plt.Rectangle((i+0.25,0),0.5,i) # Rectangle(lower left point, width, height)
         ax1.add_patch(rect)
-      ax1.set_xlim(0, 100)
-      ax1.set_ylim(0, 16);
-      ```
-      * bar
-      ```python
-      # bar绘制柱状图
-      y = range(1,17)
-      plt.bar(np.arange(16), y, alpha=0.5, width=0.5, color='yellow', edgecolor='red',  label='The First Bar', lw=3);
-      ```
-      ```python
-      # Rectangle矩形类绘制柱状图
-      fig = plt.figure()
-      ax1 = fig.add_subplot(111)
-      for i in range(1,17):
-          rect =  plt.Rectangle((i+0.25,0),0.5,i) # Rectangle(lower left point, width, height)
-          ax1.add_patch(rect)
-      ax1.set_xlim(0, 16)
-      ax1.set_ylim(0, 16);
-      ```
+    ax1.set_xlim(0, 16)
+    ax1.set_ylim(0, 16);
+    ```
   * polygoan 
   ```python
   # 用fill来绘制图形
@@ -221,3 +221,30 @@ plt.show()
   p = PatchCollection(patches,alpha=0.8)
   p.set_array(colors)
   ax1.add_collection(p);
+  ```
+* collections(scatter plot)
+```python
+# user scatter
+x = [0,2,4,6,8,10] # the position of x axis
+y = [10]*len(x) # all at the pos of 10 on y axis
+s = [20*2**n for n in range(len(x))] # set the size of dots
+plt.scatter(x,y,s=s)
+```
+* images
+```python
+methods = [None, 'none', 'nearest', 'bilinear', 'bicubic', 'spline16',
+           'spline36', 'hanning', 'hamming', 'hermite', 'kaiser', 'quadric',
+           'catrom', 'gaussian', 'bessel', 'mitchell', 'sinc', 'lanczos']
+
+
+grid = np.random.rand(4, 4)
+
+fig, axs = plt.subplots(nrows=3, ncols=6, figsize=(9, 6),
+                        subplot_kw={'xticks': [], 'yticks': []})
+
+for ax, interp_method in zip(axs.flat, methods):
+    ax.imshow(grid, interpolation=interp_method, cmap='viridis')
+    ax.set_title(str(interp_method))
+
+plt.tight_layout();
+```
