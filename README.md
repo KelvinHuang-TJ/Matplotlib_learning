@@ -1,5 +1,5 @@
 # Matplotlib_learning
-## Some notes about learing matplotlib(14 Days)
+## Some notes about learing matplotlib
 
 ![myprofile](https://user-images.githubusercontent.com/99868099/158113303-bd3e129e-9910-4502-81e9-97becd2e2a67.jpg)
 =======
